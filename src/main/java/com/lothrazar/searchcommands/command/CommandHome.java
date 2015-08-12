@@ -1,4 +1,4 @@
-package com.lothrazar.command;
+package com.lothrazar.searchcommands.command;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
-public class CommandGetHome implements ICommand
+public class CommandHome implements ICommand
 {
 	public static boolean REQUIRES_OP; 
 
@@ -31,13 +31,13 @@ public class CommandGetHome implements ICommand
 	@Override
 	public String getCommandName()
 	{ 
-		return "gethome";
+		return "home";
 	}
 
 	@Override
 	public String getCommandUsage(ICommandSender ic)
 	{ 
-		return "/"+getCommandName();
+		return "home";
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class CommandGetHome implements ICommand
 
 		if(player.dimension != 0)
 		{
-			 player.addChatMessage(new ChatComponentTranslation("No home outside the overworld"));
+			 player.addChatMessage(new ChatComponentTranslation("Can only teleport to your home in the overworld"));
 			 return;
 		}
 		
@@ -66,16 +66,32 @@ public class CommandGetHome implements ICommand
 			 //has not been sent in a bed
 			 //TODO: get the ID for this chat for translation purposes
 			 player.addChatMessage(new ChatComponentTranslation("Your home bed was missing or obstructed."));
-	 
+			 return;
+		 }
+		
+		 Block block = world.getBlock(coords.posX, coords.posY, coords.posZ);
+		 if (block.equals(Blocks.bed) || block.isBed(world, coords.posX, coords.posY, coords.posZ, null))
+		 {
+			 //then move over according to how/where the bed wants me to spawn
+			 coords = block.getBedSpawnPosition(world, coords.posX, coords.posY, coords.posZ, null);
 		 }
 		 else
 		 {
-			 String pos = coords.posX+", "+ coords.posY+", "+ coords.posZ;	 
-			 
-			 player.addChatMessage(new ChatComponentTranslation("Your home bed is at "+pos));
-				
+			 //spawn point was set, so the coords were not null, but player broke the bed (probably recently)
+			 player.addChatMessage(new ChatComponentTranslation("Your home bed was missing or obstructed."));
+			 return;
 		 }
-		
+		 
+		 //TODO: make global/shared teleportPlayer class or function
+		 //since this is copied from WorldHome
+		 
+		player.setPositionAndUpdate(coords.posX, coords.posY, coords.posZ); 
+		while (!world.getCollidingBoundingBoxes(player, player.boundingBox).isEmpty())
+		{
+			player.setPositionAndUpdate(player.posX, player.posY + 1.0D, player.posZ);
+		}
+		 
+		world.playSoundAtEntity(player, "mob.endermen.portal", 1.0F, 1.0F); 
 	}
  
 	@Override

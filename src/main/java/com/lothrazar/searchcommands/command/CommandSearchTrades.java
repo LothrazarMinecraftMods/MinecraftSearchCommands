@@ -1,4 +1,4 @@
-package com.lothrazar.command;
+package com.lothrazar.searchcommands.command;
 
 import java.util.ArrayList;
 import java.util.List; 

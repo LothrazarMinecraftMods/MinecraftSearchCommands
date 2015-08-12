@@ -1,4 +1,4 @@
-package com.lothrazar.command;
+package com.lothrazar.searchcommands.command;
 /*
  * 
  * imported from my 

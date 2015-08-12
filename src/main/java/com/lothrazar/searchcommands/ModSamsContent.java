@@ -1,7 +1,9 @@
-package com.lothrazar.samscontent;
+package com.lothrazar.searchcommands;
 
 import org.apache.logging.log4j.Logger; 
-import com.lothrazar.command.*; 
+ 
+import com.lothrazar.searchcommands.command.*; 
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -27,9 +29,6 @@ public class ModSamsContent
 
 	public static ConfigFile settings;
 	
-	
-	//TODO: try asm out http://www.minecraftforum.net/forums/mapping-and-modding/mapping-and-modding-tutorials/1571568-tutorial-1-6-2-changing-vanilla-without-editing
-
 	@EventHandler
 	public void onPreInit(FMLPreInitializationEvent event)
 	{ 
@@ -37,10 +36,8 @@ public class ModSamsContent
 		 
 		settings = new ConfigFile(new Configuration(event.getSuggestedConfigurationFile()));
   
-     	 
 		MinecraftForge.EVENT_BUS.register(instance);
 		FMLCommonHandler.instance().bus().register( instance);
-     	 
 	}
 
 	@EventHandler
@@ -52,12 +49,7 @@ public class ModSamsContent
 		 
 		if(ModSamsContent.settings.gethome) { event.registerServerCommand(new CommandGetHome()); }
 		 
-		 
-		//todo: config entries for these two
-		
 		if(ModSamsContent.settings.home) { event.registerServerCommand(new CommandWorldHome()); }
 		if(ModSamsContent.settings.worldhome) { event.registerServerCommand(new CommandHome());}
-	}
- 
-	  
+	} 
 }

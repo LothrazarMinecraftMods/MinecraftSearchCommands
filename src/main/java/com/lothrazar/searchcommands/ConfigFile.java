@@ -1,8 +1,8 @@
-package com.lothrazar.samscontent;
+package com.lothrazar.searchcommands;
 
 import net.minecraftforge.common.config.Configuration;
-
-import com.lothrazar.command.*; 
+ 
+import com.lothrazar.searchcommands.command.*; 
 
 public class ConfigFile
 {

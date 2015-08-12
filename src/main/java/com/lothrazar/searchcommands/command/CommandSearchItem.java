@@ -1,4 +1,4 @@
-package com.lothrazar.command;
+package com.lothrazar.searchcommands.command;
 
 import java.util.ArrayList;
 import java.util.List;   
@@ -11,8 +11,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
 
 public class CommandSearchItem  implements ICommand
 {

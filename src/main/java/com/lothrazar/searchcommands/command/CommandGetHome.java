@@ -1,4 +1,4 @@
-package com.lothrazar.command;
+package com.lothrazar.searchcommands.command;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
-public class CommandWorldHome  implements ICommand
+public class CommandGetHome implements ICommand
 {
 	public static boolean REQUIRES_OP; 
 
@@ -21,7 +21,7 @@ public class CommandWorldHome  implements ICommand
 	}
 	
 	@Override
-	public int compareTo(Object o)
+	public int compareTo(Object arg0)
 	{ 
 		return 0;
 	}
@@ -29,13 +29,13 @@ public class CommandWorldHome  implements ICommand
 	@Override
 	public String getCommandName()
 	{ 
-		return "worldhome";
+		return "gethome";
 	}
 
 	@Override
 	public String getCommandUsage(ICommandSender ic)
 	{ 
-		return "worldhome";
+		return "/"+getCommandName();
 	}
 
 	@Override
@@ -48,36 +48,47 @@ public class CommandWorldHome  implements ICommand
 	public void processCommand(ICommandSender ic, String[] args)
 	{
 		EntityPlayer player = ((EntityPlayer)ic); 
-		World world = player.worldObj; 
-		
+		World world = player.worldObj;
+
+
 		if(player.dimension != 0)
 		{
-			 player.addChatMessage(new ChatComponentTranslation("Can only teleport to worldhome in the overworld"));
+			 player.addChatMessage(new ChatComponentTranslation("No home outside the overworld"));
 			 return;
 		}
 		
-		//this tends to always get something at y=64, regardless if there is AIR or not
-		ChunkCoordinates coords = world.getSpawnPoint();
+		 ChunkCoordinates coords = player.getBedLocation(0);
 		 
-		//so we keep moving up until we no longer intersect with the world
-		player.setPositionAndUpdate(coords.posX, coords.posY, coords.posZ); 
-		while (!world.getCollidingBoundingBoxes(player, player.boundingBox).isEmpty())
-		{
-			player.setPositionAndUpdate(player.posX, player.posY + 1.0D, player.posZ);
-		}
+		 if(coords == null)
+		 {
+			 //has not been sent in a bed
+			 //TODO: get the ID for this chat for translation purposes
+			 player.addChatMessage(new ChatComponentTranslation("Your home bed was missing or obstructed."));
+	 
+		 }
+		 else
+		 {
+			 String pos = coords.posX+", "+ coords.posY+", "+ coords.posZ;	 
+			 
+			 player.addChatMessage(new ChatComponentTranslation("Your home bed is at "+pos));
+				
+		 }
 		
-		world.playSoundAtEntity(player, "mob.endermen.portal", 1.0F, 1.0F); 
 	}
  
 	@Override
 	public List addTabCompletionOptions(ICommandSender ic, String[] args)
-	{ 
+	{
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean isUsernameIndex(String[] ic, int args)
-	{ 
+	public boolean isUsernameIndex(String[] args, int i)
+	{
+		// TODO Auto-generated method stub
 		return false;
-	} 
+	}
+
+
 }
