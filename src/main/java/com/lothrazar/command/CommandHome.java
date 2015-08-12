@@ -13,8 +13,15 @@ import net.minecraft.world.World;
 
 public class CommandHome implements ICommand
 {
-	public static boolean REQUIRES_OP = false;//TODO: alter this from config file
+	public static boolean REQUIRES_OP; 
 
+	@Override
+	public boolean canCommandSenderUseCommand(ICommandSender ic)
+	{
+		//if we dont require OP, then it always returns true
+		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, "") : true; 
+	}
+	
 	@Override
 	public int compareTo(Object arg0)
 	{ 
@@ -86,13 +93,7 @@ public class CommandHome implements ICommand
 		 
 		world.playSoundAtEntity(player, "mob.endermen.portal", 1.0F, 1.0F); 
 	}
-
-	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender ic)
-	{
-		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, "") : true; 
-	}
-
+ 
 	@Override
 	public List addTabCompletionOptions(ICommandSender ic, String[] args)
 	{

@@ -8,11 +8,21 @@ package com.lothrazar.command;
  * 
  * */
 import java.util.ArrayList;
+
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 public class CommandEnderChest implements ICommand
 {
+	public static boolean REQUIRES_OP; 
+
+	@Override
+	public boolean canCommandSenderUseCommand(ICommandSender ic)
+	{
+		//if we dont require OP, then it always returns true
+		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, "") : true; 
+	}
+	
 	private ArrayList<String> aliases;
 	public CommandEnderChest()
 	{
@@ -44,17 +54,7 @@ public class CommandEnderChest implements ICommand
 	{
 		EntityPlayer p = (EntityPlayer)icommandsender;
 		p.displayGUIChest(p.getInventoryEnderChest());
-	}
-	
-	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender ic)
-	{
-		//removed from 172 : MinecraftServer.getServer().getConfigurationManager().isPlayerOpped()
-		//instead we do:
-		//http://www.minecraftforge.net/forum/index.php?topic=22907.0
-		//for some magic reason, 2 means op. and "" is ?? but it works.
-		return ic.canCommandSenderUseCommand(2, "");
-	}
+	} 
 	
 	@Override
 	public ArrayList<String> addTabCompletionOptions(ICommandSender icommandsender, String[] astring)

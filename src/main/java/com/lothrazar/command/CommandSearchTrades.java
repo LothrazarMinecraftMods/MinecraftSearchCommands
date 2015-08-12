@@ -2,6 +2,7 @@ package com.lothrazar.command;
 
 import java.util.ArrayList;
 import java.util.List; 
+
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.EntityLiving;
@@ -15,6 +16,15 @@ import net.minecraft.village.MerchantRecipeList;
 
 public class CommandSearchTrades  implements ICommand
 {
+	public static boolean REQUIRES_OP; 
+
+	@Override
+	public boolean canCommandSenderUseCommand(ICommandSender ic)
+	{
+		//if we dont require OP, then it always returns true
+		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, "") : true; 
+	}
+	
 	@Override
 	public int compareTo(Object arg0) 
 	{ 
@@ -145,13 +155,7 @@ public class CommandSearchTrades  implements ICommand
 			p.addChatMessage(new ChatComponentTranslation("No matching trades found in nearby villagers ("+range+"m).")); 
 		 } 
 	}
-
-	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender ic) 
-	{ 
-		return true;
-	}
-
+ 
 	@Override
 	public List addTabCompletionOptions(ICommandSender ic,	String[] args) 
 	{ 

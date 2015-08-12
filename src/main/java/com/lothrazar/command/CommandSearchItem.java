@@ -2,6 +2,7 @@ package com.lothrazar.command;
 
 import java.util.ArrayList;
 import java.util.List;   
+
 import cpw.mods.fml.common.FMLCommonHandler; 
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -15,7 +16,16 @@ import net.minecraftforge.common.config.Property;
 
 public class CommandSearchItem  implements ICommand
 {
-	private static int RADIUS = 32;
+	public static boolean REQUIRES_OP; 
+	public static int RADIUS = 32;
+
+	@Override
+	public boolean canCommandSenderUseCommand(ICommandSender ic)
+	{
+		//if we dont require OP, then it always returns true
+		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, "") : true; 
+	}
+	
 
 	public CommandSearchItem()
 	{
@@ -33,13 +43,7 @@ public class CommandSearchItem  implements ICommand
 	{ 
 		return null;
 	}
-
-	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender arg0) 
-	{ 
-		return true;
-	}
-	
+ 
 	public static final ArrayList<String>	aliases		= new ArrayList<String>();
 	
 	@Override
