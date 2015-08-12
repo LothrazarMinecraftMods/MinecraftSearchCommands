@@ -11,6 +11,7 @@ public class ConfigFile
 	public boolean enderchest;
 	public boolean home;
 	public boolean worldhome;
+	public boolean gethome;
 
 	public static Configuration config;
 	public ConfigFile(Configuration c)
@@ -23,6 +24,10 @@ public class ConfigFile
 		home = config.getBoolean("home",category, true,
     			"Use /home to go to the players spawn point, as defined by a bed.");
 		CommandHome.REQUIRES_OP = config.getBoolean("home.needs_op",category, false,
+				"Restricted to players with OP (or single player worlds with cheats enabled).");
+		gethome = config.getBoolean("gethome",category, true,
+    			"Use /gethome to display your spawn point if defined by a bed.");
+		CommandHome.REQUIRES_OP = config.getBoolean("gethome.needs_op",category, false,
 				"Restricted to players with OP (or single player worlds with cheats enabled).");
 		
 		worldhome = config.getBoolean("worldhome",category, true,

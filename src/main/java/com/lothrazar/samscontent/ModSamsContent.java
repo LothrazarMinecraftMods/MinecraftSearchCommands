@@ -50,7 +50,8 @@ public class ModSamsContent
 		if(ModSamsContent.settings.searchitem) { event.registerServerCommand(new CommandSearchItem()); }
 		if(ModSamsContent.settings.enderchest) { event.registerServerCommand(new CommandEnderChest()); }
 		 
-	
+		if(ModSamsContent.settings.gethome) { event.registerServerCommand(new CommandGetHome()); }
+		 
 		 
 		//todo: config entries for these two
 		
