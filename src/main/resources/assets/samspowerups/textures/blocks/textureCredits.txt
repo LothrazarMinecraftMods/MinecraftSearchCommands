@@ -1,0 +1,1 @@
+I did not make command block coloured textures.  Found these on reddit.com/r/Minecraft long ago, 2012 or 2013.  I have no source.  However, they are simply the C Mojang textures with a very simple color pallette swap.
