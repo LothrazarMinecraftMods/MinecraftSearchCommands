@@ -16,7 +16,8 @@ import net.minecraft.village.MerchantRecipeList;
 
 public class CommandSearchTrades  implements ICommand
 {
-	public static boolean REQUIRES_OP; 
+	public static boolean REQUIRES_OP;
+	public static boolean SHOW_COORDS; 
 
 	@Override
 	public boolean canCommandSenderUseCommand(ICommandSender ic)

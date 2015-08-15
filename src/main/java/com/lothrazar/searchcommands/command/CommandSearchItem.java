@@ -15,7 +15,8 @@ import net.minecraft.util.ChatComponentTranslation;
 public class CommandSearchItem  implements ICommand
 {
 	public static boolean REQUIRES_OP; 
-	public static int RADIUS = 32;
+	public static int RADIUS;
+	public static boolean SHOW_COORDS;
 
 	@Override
 	public boolean canCommandSenderUseCommand(ICommandSender ic)
@@ -165,13 +166,20 @@ public class CommandSearchItem  implements ICommand
 		}
 	}
 	
-	private static String itemLocDisplay(	EntityPlayerMP player, int xLoop, int yLoop, int zLoop ,int foundQty, int foundStacks)
+	private static String itemLocDisplay(EntityPlayerMP player, int x, int y, int z ,int qty, int stacks)
 	{  
+		String s = (stacks == 1) ? "" : "s";
+		String totalsStr = stacks + " stack"+s+"; ("+qty + " total).";
+		if(SHOW_COORDS)
+		{
+			return x+", "+y+", "+z +" : "+ totalsStr;
+		}
 		int xDist,yDist,zDist;
 		
-		xDist = (int) player.posX - xLoop;
-		yDist = (int) player.posY - yLoop;
-		zDist = (int) player.posZ - zLoop;
+		
+		xDist = (int) player.posX - x;
+		yDist = (int) player.posY - y;
+		zDist = (int) player.posZ - z;
 		
 		//in terms of directon copmass:
 		//North is -z;  south is +z		
@@ -201,8 +209,6 @@ public class CommandSearchItem  implements ICommand
 		if(isUp)   yStr = Math.abs(yDist) + " up ";
 		if(isDown) yStr = Math.abs(yDist) + " down ";
 		
-		String s = (foundStacks == 1) ? "" : "s";
-		String totalsStr = foundStacks + " stack"+s+"; ("+foundQty + " total).";
 		 
 		return xStr +  yStr +  zStr +": "+ totalsStr;
 	}

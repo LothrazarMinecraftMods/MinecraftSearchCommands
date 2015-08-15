@@ -21,6 +21,7 @@ public class ConfigFile
 
 		category = "commands";
 		
+		
 		home = config.getBoolean("home",category, true,
     			"Use /home to go to the players spawn point, as defined by a bed.");
 		CommandHome.REQUIRES_OP = config.getBoolean("home.needs_op",category, false,
@@ -39,11 +40,22 @@ public class ConfigFile
     			"Command that lets players search the trades of nearby villagers.  Result is only chat output.");
 		CommandSearchTrades.REQUIRES_OP = config.getBoolean("searchtrade.needs_op",category, false,
     			"Restricted to players with OP (or single player worlds with cheats enabled).");
-
+		 
+		//CommandSearchTrades.SHOW_COORDS = config.getBoolean("searchitem.show_coords",category, false,
+    	//		"Show custom directions, or regular x,y,z coordinates.");
+		
 		searchitem = config.getBoolean("searchitem",category, true,
     			"Command that lets players search nearby chests for items.   Result is only chat output.");
 		CommandSearchItem.REQUIRES_OP = config.getBoolean("searchitem.needs_op",category, false,
     			"Restricted to players with OP (or single player worlds with cheats enabled).");
+	
+		CommandSearchItem.SHOW_COORDS = config.getBoolean("searchitem.show_coords",category, false,
+    			"Show custom directions, or regular x,y,z coordinates.");
+		CommandSearchItem.RADIUS = config.getInt("searchitem.radius", category, 32, 2, 256, "Search radius");
+		
+		//TODO: config to show exact coords
+		
+		
 		//could do ranges here?
 		enderchest = config.getBoolean("enderchest",category, true,
     			"Command that lets players open their enderchest with a command, no item needed."    		);
