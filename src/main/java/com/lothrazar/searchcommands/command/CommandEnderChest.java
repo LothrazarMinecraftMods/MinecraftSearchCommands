@@ -40,7 +40,7 @@ public class CommandEnderChest implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender icommandsender)
 	{
-		return "enderchest";
+		return "/"+getCommandName();
 	}
 	
 	@Override
