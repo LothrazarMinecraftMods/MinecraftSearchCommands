@@ -100,6 +100,7 @@ public class CommandSearchTrades  implements ICommand
 		 
 		 ArrayList<String> messages = new ArrayList<String>();
 		 boolean match = false;
+		 
 		 for(int i = 0; i < villagers.size(); i++)
 		 { 
 			 list = villagers.get(i).getRecipes(p); 

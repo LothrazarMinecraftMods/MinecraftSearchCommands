@@ -19,7 +19,7 @@ public class ConfigFile
 		config = c;
 		String category;
 
-		category = "commands";
+		category = Configuration.CATEGORY_GENERAL;
 		
 		
 		home = config.getBoolean("home",category, true,
