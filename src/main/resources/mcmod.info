@@ -2,10 +2,10 @@
 {
   "modid": "searchcommands",
   "name": "Search Commands",
-  "description": "New commands... Check the config file for details.",
-  "version": "1.7.10-1.0",
+  "description": "New commands: home, gethome, worldhome, enderchest, searchtrade, searchitem. Check the config file for details.",
+  "version": "1.7.10-1.0.0",
   "mcversion": "1.7.10",
-  "url": "www.twitter.com/lothrazar",
+  "url": "http://www.curse.com/users/Lothrazar/projects",
   "updateUrl": "",
   "authorList": ["Lothrazar"],
   "credits": "Thanks to LexManos.  And everyone who makes their mods Open Source.",
