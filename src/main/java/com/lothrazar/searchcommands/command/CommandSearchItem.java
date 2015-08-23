@@ -3,13 +3,14 @@ package com.lothrazar.searchcommands.command;
 import java.util.ArrayList;
 import java.util.List;   
 
-import cpw.mods.fml.common.FMLCommonHandler; 
+import net.minecraftforge.fml.common.FMLCommonHandler; 
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 
 public class CommandSearchItem  implements ICommand
@@ -19,10 +20,9 @@ public class CommandSearchItem  implements ICommand
 	public static boolean SHOW_COORDS;
 
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender ic)
+	public boolean canCommandSenderUse(ICommandSender ic)
 	{
-		//if we dont require OP, then it always returns true
-		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, "") : true; 
+		return (REQUIRES_OP) ? ic.canUseCommand(2, this.getName()) : true; 
 	}
 	
 
@@ -38,7 +38,7 @@ public class CommandSearchItem  implements ICommand
 	}
 
 	@Override
-	public List addTabCompletionOptions(ICommandSender arg0, String[] arg1) 
+	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
 	{ 
 		return null;
 	}
@@ -46,13 +46,13 @@ public class CommandSearchItem  implements ICommand
 	public static final ArrayList<String>	aliases		= new ArrayList<String>();
 	
 	@Override
-	public List getCommandAliases() 
+	public List getAliases() 
 	{  
 		return aliases;
 	}
 
 	@Override
-	public String getCommandName() 
+	public String getName() 
 	{ 
 		return "searchitem";
 	}
@@ -60,7 +60,7 @@ public class CommandSearchItem  implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender arg0) 
 	{ 
-		return "/searchitem <itemname>";
+		return "/"+getName()+" <itemname>";
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class CommandSearchItem  implements ICommand
 	}
   
 	@Override
-	public void processCommand(ICommandSender sender, String[] args) 
+	public void execute(ICommandSender sender, String[] args) 
 	{
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {return;}
 			
@@ -109,7 +109,7 @@ public class CommandSearchItem  implements ICommand
 			{
 				for (int zLoop = zMin; zLoop <= zMax; zLoop++)
 				{
-					TileEntity tile = player.worldObj.getTileEntity(xLoop, yLoop, zLoop);
+					TileEntity tile = player.worldObj.getTileEntity(new BlockPos(xLoop, yLoop, zLoop));
 					
 					if(tile == null || !(tile instanceof IInventory) ) {continue;}
 					 

@@ -5,8 +5,8 @@ import java.util.List;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentTranslation; 
 import net.minecraft.world.World;
 
 public class CommandGetHome implements ICommand
@@ -14,10 +14,9 @@ public class CommandGetHome implements ICommand
 	public static boolean REQUIRES_OP; 
 
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender ic)
+	public boolean canCommandSenderUse(ICommandSender ic)
 	{
-		//if we dont require OP, then it always returns true
-		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, "") : true; 
+		return (REQUIRES_OP) ? ic.canUseCommand(2, this.getName()) : true; 
 	}
 	
 	@Override
@@ -27,7 +26,7 @@ public class CommandGetHome implements ICommand
 	}
 
 	@Override
-	public String getCommandName()
+	public String getName()
 	{ 
 		return "gethome";
 	}
@@ -35,17 +34,17 @@ public class CommandGetHome implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender ic)
 	{ 
-		return "/"+getCommandName();
+		return "/"+getName();
 	}
 
 	@Override
-	public List getCommandAliases()
+	public List getAliases()
 	{ 
 		return null;
 	}
 
 	@Override
-	public void processCommand(ICommandSender ic, String[] args)
+	public void execute(ICommandSender ic, String[] args)
 	{
 		EntityPlayer player = ((EntityPlayer)ic); 
 		World world = player.worldObj;
@@ -57,7 +56,7 @@ public class CommandGetHome implements ICommand
 			 return;
 		}
 		
-		 ChunkCoordinates coords = player.getBedLocation(0);
+		 BlockPos coords = player.getBedLocation(0);
 		 
 		 if(coords == null)
 		 {
@@ -68,7 +67,7 @@ public class CommandGetHome implements ICommand
 		 }
 		 else
 		 {
-			 String pos = coords.posX+", "+ coords.posY+", "+ coords.posZ;	 
+			 String pos = coords.getX()+", "+ coords.getY()+", "+ coords.getZ();	 
 			 
 			 player.addChatMessage(new ChatComponentTranslation("Your home bed is at "+pos));
 				
@@ -77,7 +76,7 @@ public class CommandGetHome implements ICommand
 	}
  
 	@Override
-	public List addTabCompletionOptions(ICommandSender ic, String[] args)
+	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
 	{
 		// TODO Auto-generated method stub
 		return null;

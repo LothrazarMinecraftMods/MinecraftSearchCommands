@@ -8,19 +8,23 @@ package com.lothrazar.searchcommands.command;
  * 
  * */
 import java.util.ArrayList;
+import java.util.List;
 
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
+
 public class CommandEnderChest implements ICommand
 {
 	public static boolean REQUIRES_OP; 
 
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender ic)
+	public boolean canCommandSenderUse(ICommandSender ic)
 	{
 		//if we dont require OP, then it always returns true
-		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, "") : true; 
+		return (REQUIRES_OP) ? ic.canUseCommand(2, "") : true; 
 	}
 	
 	private ArrayList<String> aliases;
@@ -29,10 +33,11 @@ public class CommandEnderChest implements ICommand
 		this.aliases = new ArrayList<String>();
 		this.aliases.add("ec");
 		this.aliases.add("enderchest");
+		this.aliases.add(getName().toUpperCase());
 	}
 	
 	@Override
-	public String getCommandName()
+	public String getName()
 	{
 		return "enderchest";
 	}
@@ -40,24 +45,24 @@ public class CommandEnderChest implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender icommandsender)
 	{
-		return "/"+getCommandName();
+		return "/"+getName();
 	}
 	
 	@Override
-	public ArrayList<String> getCommandAliases()
+	public ArrayList<String> getAliases()
 	{
 		return this.aliases;
 	}
 	
 	@Override
-	public void processCommand(ICommandSender icommandsender, String[] astring)
+	public void execute(ICommandSender icommandsender, String[] astring) throws CommandException
 	{
 		EntityPlayer p = (EntityPlayer)icommandsender;
 		p.displayGUIChest(p.getInventoryEnderChest());
 	} 
 	
 	@Override
-	public ArrayList<String> addTabCompletionOptions(ICommandSender icommandsender, String[] astring)
+	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
 	{
 		return null;
 	}

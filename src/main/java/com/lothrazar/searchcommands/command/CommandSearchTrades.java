@@ -10,6 +10,7 @@ import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
@@ -20,10 +21,9 @@ public class CommandSearchTrades  implements ICommand
 	public static boolean SHOW_COORDS; 
 
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender ic)
+	public boolean canCommandSenderUse(ICommandSender ic)
 	{
-		//if we dont require OP, then it always returns true
-		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, "") : true; 
+		return (REQUIRES_OP) ? ic.canUseCommand(2, this.getName()) : true; 
 	}
 	
 	@Override
@@ -33,7 +33,7 @@ public class CommandSearchTrades  implements ICommand
 	}
 
 	@Override
-	public String getCommandName() 
+	public String getName() 
 	{ 
 		return "searchtrade";
 	}
@@ -41,17 +41,17 @@ public class CommandSearchTrades  implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender ic) 
 	{ 
-		return  "/"+getCommandName()+" <itemname> <qty>";
+		return  "/"+getName()+" <itemname> <qty>";
 	}
 
 	@Override
-	public List getCommandAliases() 
+	public List getAliases() 
 	{ 
 		return null;
 	}
 
 	@Override
-	public void processCommand(ICommandSender ic, String[] args) 
+	public void execute(ICommandSender ic, String[] args) 
 	{
 		EntityPlayer p = (EntityPlayer)ic;
 		if(args.length == 0)
@@ -69,11 +69,11 @@ public class CommandSearchTrades  implements ICommand
 			if(searchingQty < 0) {searchingQty  = 0;}
 		}
 		//step 1: get list of nearby villagers, seearch entities nearby in world
-		double X = ic.getPlayerCoordinates().posX;
-		double Z = ic.getPlayerCoordinates().posZ;
+		double X = ic.getPosition().getX();
+		double Z = ic.getPosition().getZ();
 		double range = 64;
-		
-		AxisAlignedBB searchRange = AxisAlignedBB.getBoundingBox(
+		//AxisAlignedBB.fromBounds(x1, y1, z1, x2, y2, z2)
+		AxisAlignedBB searchRange = AxisAlignedBB.fromBounds(
 				X + 0.5D - range, 0.0D, 
 				Z + 0.5D - range, 
 				X + 0.5D + range, 255.0D, 
@@ -159,7 +159,7 @@ public class CommandSearchTrades  implements ICommand
 	}
  
 	@Override
-	public List addTabCompletionOptions(ICommandSender ic,	String[] args) 
+	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
 	{ 
 		return null;
 	}
