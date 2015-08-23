@@ -57,8 +57,7 @@ public class CommandHome implements ICommand
 	{
 		EntityPlayer player = ((EntityPlayer)ic); 
 		World world = player.worldObj;
-
-
+ 
 		if(player.dimension != 0)
 		{
 			 player.addChatMessage(new ChatComponentTranslation("Can only teleport to your home in the overworld"));
@@ -93,7 +92,8 @@ public class CommandHome implements ICommand
 		 //since this is copied from WorldHome
 		 
 		player.setPositionAndUpdate(coords.getX(),  coords.getY(),  coords.getZ()); 
-		while (!world.getCollidingBoundingBoxes(player, player.getBoundingBox()).isEmpty())
+		while (player.getEntityBoundingBox() != null && world.getCollidingBoundingBoxes(player, player.getEntityBoundingBox()) != null && 
+			  !world.getCollidingBoundingBoxes(player, player.getEntityBoundingBox()).isEmpty())
 		{
 			player.setPositionAndUpdate(player.posX, player.posY + 1.0D, player.posZ);
 		}

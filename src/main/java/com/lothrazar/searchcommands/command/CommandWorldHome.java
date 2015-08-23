@@ -65,7 +65,8 @@ public class CommandWorldHome  implements ICommand
 		 
 		//so we keep moving up until we no longer intersect with the world
 		player.setPositionAndUpdate(coords.getX(),  coords.getY(),  coords.getZ()); 
-		while (!world.getCollidingBoundingBoxes(player, player.getBoundingBox()).isEmpty())
+		while (player.getEntityBoundingBox() != null && world.getCollidingBoundingBoxes(player, player.getEntityBoundingBox()) != null && 
+			  !world.getCollidingBoundingBoxes(player, player.getEntityBoundingBox()).isEmpty())
 		{
 			player.setPositionAndUpdate(player.posX, player.posY + 1.0D, player.posZ);
 		}
