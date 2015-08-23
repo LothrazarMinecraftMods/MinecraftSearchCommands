@@ -18,6 +18,7 @@ import net.minecraft.util.BlockPos;
 
 public class CommandEnderChest implements ICommand
 {
+	private ArrayList<String> aliases;
 	public static boolean REQUIRES_OP; 
 
 	@Override
@@ -26,8 +27,6 @@ public class CommandEnderChest implements ICommand
 		//if we dont require OP, then it always returns true
 		return (REQUIRES_OP) ? ic.canUseCommand(2, "") : true; 
 	}
-	
-	private ArrayList<String> aliases;
 	public CommandEnderChest()
 	{
 		this.aliases = new ArrayList<String>();

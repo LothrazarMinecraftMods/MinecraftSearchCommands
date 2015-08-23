@@ -1,5 +1,6 @@
 package com.lothrazar.searchcommands.command;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.command.ICommand;
@@ -11,8 +12,12 @@ import net.minecraft.world.World;
 
 public class CommandGetHome implements ICommand
 {
+	private ArrayList<String> aliases;
 	public static boolean REQUIRES_OP; 
-
+	public CommandGetHome()
+	{
+		aliases = new ArrayList<String>();
+	}
 	@Override
 	public boolean canCommandSenderUse(ICommandSender ic)
 	{
@@ -40,7 +45,7 @@ public class CommandGetHome implements ICommand
 	@Override
 	public List getAliases()
 	{ 
-		return null;
+		return aliases;
 	}
 
 	@Override

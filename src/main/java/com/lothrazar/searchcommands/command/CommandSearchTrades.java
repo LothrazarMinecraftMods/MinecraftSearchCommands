@@ -17,9 +17,13 @@ import net.minecraft.village.MerchantRecipeList;
 
 public class CommandSearchTrades  implements ICommand
 {
+	private ArrayList<String> aliases;
 	public static boolean REQUIRES_OP;
 	public static boolean SHOW_COORDS; 
-
+	public CommandSearchTrades()
+	{
+		this.aliases = new ArrayList<String>();
+	}
 	@Override
 	public boolean canCommandSenderUse(ICommandSender ic)
 	{
@@ -47,7 +51,7 @@ public class CommandSearchTrades  implements ICommand
 	@Override
 	public List getAliases() 
 	{ 
-		return null;
+		return aliases;
 	}
 
 	@Override

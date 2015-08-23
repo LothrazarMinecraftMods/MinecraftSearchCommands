@@ -15,21 +15,22 @@ import net.minecraft.util.ChatComponentTranslation;
 
 public class CommandSearchItem  implements ICommand
 {
+	private ArrayList<String> aliases;
 	public static boolean REQUIRES_OP; 
 	public static int RADIUS;
 	public static boolean SHOW_COORDS;
 
+	public CommandSearchItem()
+	{
+		this.aliases = new ArrayList<String>();
+		aliases.add("is");
+	}
 	@Override
 	public boolean canCommandSenderUse(ICommandSender ic)
 	{
 		return (REQUIRES_OP) ? ic.canUseCommand(2, this.getName()) : true; 
 	}
 	
-
-	public CommandSearchItem()
-	{
-		aliases.add("is");
-	}
 	
 	@Override
 	public int compareTo(Object arg0) 
@@ -43,8 +44,6 @@ public class CommandSearchItem  implements ICommand
 		return null;
 	}
  
-	public static final ArrayList<String>	aliases		= new ArrayList<String>();
-	
 	@Override
 	public List getAliases() 
 	{  
