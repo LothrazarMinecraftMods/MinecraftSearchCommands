@@ -25,19 +25,19 @@ public class CommandSearchTrades  implements ICommand
 		this.aliases = new ArrayList<String>();
 	}
 	@Override
-	public boolean canCommandSenderUse(ICommandSender ic)
+	public boolean canCommandSenderUseCommand(ICommandSender ic)
 	{
-		return (REQUIRES_OP) ? ic.canUseCommand(2, this.getName()) : true; 
+		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, this.getCommandName()) : true; 
 	}
 	
 	@Override
-	public int compareTo(Object arg0) 
+	public int compareTo(ICommand arg0) 
 	{ 
 		return 0;
 	}
 
 	@Override
-	public String getName() 
+	public String getCommandName() 
 	{ 
 		return "searchtrade";
 	}
@@ -45,17 +45,17 @@ public class CommandSearchTrades  implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender ic) 
 	{ 
-		return  "/"+getName()+" <itemname> <qty>";
+		return  "/"+getCommandName()+" <itemname> <qty>";
 	}
 
 	@Override
-	public List getAliases() 
+	public List<String> getCommandAliases() 
 	{ 
 		return aliases;
 	}
 
 	@Override
-	public void execute(ICommandSender ic, String[] args) 
+	public void processCommand(ICommandSender ic, String[] args) 
 	{
 		EntityPlayer p = (EntityPlayer)ic;
 		if(args.length == 0)
@@ -161,7 +161,8 @@ public class CommandSearchTrades  implements ICommand
 			p.addChatMessage(new ChatComponentTranslation("No matching trades found in nearby villagers ("+range+"m).")); 
 		 } 
 	}
- 
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
 	{ 

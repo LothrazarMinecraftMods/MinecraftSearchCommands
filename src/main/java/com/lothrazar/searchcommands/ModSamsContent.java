@@ -36,8 +36,7 @@ public class ModSamsContent
 		 
 		settings = new ConfigFile(new Configuration(event.getSuggestedConfigurationFile()));
   
-		MinecraftForge.EVENT_BUS.register(instance);
-		FMLCommonHandler.instance().bus().register( instance);
+		MinecraftForge.EVENT_BUS.register(instance); 
 	}
 
 	@EventHandler

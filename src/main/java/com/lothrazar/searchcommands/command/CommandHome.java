@@ -23,19 +23,19 @@ public class CommandHome implements ICommand
 	}
 
 	@Override
-	public boolean canCommandSenderUse(ICommandSender ic)
+	public boolean canCommandSenderUseCommand(ICommandSender ic)
 	{
-		return (REQUIRES_OP) ? ic.canUseCommand(2, this.getName()) : true; 
+		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, this.getCommandName()) : true; 
 	}
 	
 	@Override
-	public int compareTo(Object arg0)
+	public int compareTo(ICommand arg0)
 	{ 
 		return 0;
 	}
 
 	@Override
-	public String getName()
+	public String getCommandName()
 	{ 
 		return "home";
 	}
@@ -43,17 +43,17 @@ public class CommandHome implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender ic)
 	{ 
-		return "/"+getName();
+		return "/"+getCommandName();
 	}
 
 	@Override
-	public List getAliases()
+	public List<String> getCommandAliases()
 	{ 
 		return aliases;
 	}
 
 	@Override
-	public void execute(ICommandSender ic, String[] args)
+	public void processCommand(ICommandSender ic, String[] args)
 	{
 		EntityPlayer player = ((EntityPlayer)ic); 
 		World world = player.worldObj;
@@ -100,7 +100,8 @@ public class CommandHome implements ICommand
 		 
 		world.playSoundAtEntity(player, "mob.endermen.portal", 1.0F, 1.0F); 
 	}
- 
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
 	{

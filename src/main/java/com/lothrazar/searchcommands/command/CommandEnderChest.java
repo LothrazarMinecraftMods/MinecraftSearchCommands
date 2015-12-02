@@ -22,21 +22,21 @@ public class CommandEnderChest implements ICommand
 	public static boolean REQUIRES_OP; 
 
 	@Override
-	public boolean canCommandSenderUse(ICommandSender ic)
-	{
+	public boolean canCommandSenderUseCommand(ICommandSender ic)
+	{ 
 		//if we dont require OP, then it always returns true
-		return (REQUIRES_OP) ? ic.canUseCommand(2, "") : true; 
+		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, "") : true; 
 	}
 	public CommandEnderChest()
 	{
 		this.aliases = new ArrayList<String>();
 		this.aliases.add("ec");
 		this.aliases.add("enderchest");
-		this.aliases.add(getName().toUpperCase());
+		this.aliases.add(getCommandName().toUpperCase());
 	}
 	
 	@Override
-	public String getName()
+	public String getCommandName()
 	{
 		return "enderchest";
 	}
@@ -44,22 +44,23 @@ public class CommandEnderChest implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender icommandsender)
 	{
-		return "/"+getName();
+		return "/"+getCommandName();
 	}
 	
 	@Override
-	public ArrayList<String> getAliases()
+	public ArrayList<String> getCommandAliases()
 	{
 		return this.aliases;
 	}
 	
 	@Override
-	public void execute(ICommandSender icommandsender, String[] astring) throws CommandException
+	public void processCommand(ICommandSender icommandsender, String[] astring) throws CommandException
 	{
 		EntityPlayer p = (EntityPlayer)icommandsender;
 		p.displayGUIChest(p.getInventoryEnderChest());
 	} 
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
 	{
@@ -73,7 +74,7 @@ public class CommandEnderChest implements ICommand
 	}
 	
 	@Override
-	public int compareTo(Object o)
+	public int compareTo(ICommand o)
 	{
 		return 0;
 	}

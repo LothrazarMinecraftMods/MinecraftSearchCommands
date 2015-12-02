@@ -26,18 +26,19 @@ public class CommandSearchItem  implements ICommand
 		aliases.add("is");
 	}
 	@Override
-	public boolean canCommandSenderUse(ICommandSender ic)
+	public boolean canCommandSenderUseCommand(ICommandSender ic)
 	{
-		return (REQUIRES_OP) ? ic.canUseCommand(2, this.getName()) : true; 
+		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, this.getCommandName()) : true; 
 	}
 	
 	
 	@Override
-	public int compareTo(Object arg0) 
+	public int compareTo(ICommand arg0) 
 	{ 
 		return 0;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
 	{ 
@@ -45,13 +46,13 @@ public class CommandSearchItem  implements ICommand
 	}
  
 	@Override
-	public List getAliases() 
+	public List<String> getCommandAliases() 
 	{  
 		return aliases;
 	}
 
 	@Override
-	public String getName() 
+	public String getCommandName() 
 	{ 
 		return "searchitem";
 	}
@@ -59,7 +60,7 @@ public class CommandSearchItem  implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender arg0) 
 	{ 
-		return "/"+getName()+" <itemname>";
+		return "/"+getCommandName()+" <itemname>";
 	}
 
 	@Override
@@ -69,7 +70,7 @@ public class CommandSearchItem  implements ICommand
 	}
   
 	@Override
-	public void execute(ICommandSender sender, String[] args) 
+	public void processCommand(ICommandSender sender, String[] args) 
 	{
 		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {return;}
 			

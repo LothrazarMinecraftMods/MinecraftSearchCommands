@@ -7,8 +7,7 @@ import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentTranslation; 
-import net.minecraft.world.World;
+import net.minecraft.util.ChatComponentTranslation;  
 
 public class CommandGetHome implements ICommand
 {
@@ -19,19 +18,19 @@ public class CommandGetHome implements ICommand
 		aliases = new ArrayList<String>();
 	}
 	@Override
-	public boolean canCommandSenderUse(ICommandSender ic)
+	public boolean canCommandSenderUseCommand(ICommandSender ic)
 	{
-		return (REQUIRES_OP) ? ic.canUseCommand(2, this.getName()) : true; 
+		return (REQUIRES_OP) ? ic.canCommandSenderUseCommand(2, this.getCommandName()) : true; 
 	}
 	
 	@Override
-	public int compareTo(Object arg0)
+	public int compareTo(ICommand arg0)
 	{ 
 		return 0;
 	}
 
 	@Override
-	public String getName()
+	public String getCommandName()
 	{ 
 		return "gethome";
 	}
@@ -39,20 +38,20 @@ public class CommandGetHome implements ICommand
 	@Override
 	public String getCommandUsage(ICommandSender ic)
 	{ 
-		return "/"+getName();
+		return "/"+getCommandName();
 	}
 
 	@Override
-	public List getAliases()
+	public ArrayList<String> getCommandAliases()
 	{ 
 		return aliases;
 	}
 
 	@Override
-	public void execute(ICommandSender ic, String[] args)
+	public void processCommand(ICommandSender ic, String[] args)
 	{
 		EntityPlayer player = ((EntityPlayer)ic); 
-		World world = player.worldObj;
+		//World world = player.worldObj;
 
 
 		if(player.dimension != 0)
@@ -79,7 +78,8 @@ public class CommandGetHome implements ICommand
 		 }
 		
 	}
- 
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
 	{
