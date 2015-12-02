@@ -6,7 +6,6 @@ import com.lothrazar.searchcommands.command.*;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -19,7 +18,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
  * 
  */
 //TODO: fix // ,guiFactory = "com.lothrazar.samspowerups.gui.ConfigGuiFactory"
-@Mod(modid = ModSamsContent.MODID,  useMetadata = true) 
+@Mod(modid = ModSamsContent.MODID,  useMetadata = true, updateJSON="https://raw.githubusercontent.com/LothrazarMinecraftMods/MinecraftSearchCommands/master/update.json") 
 public class ModSamsContent
 {
 	@Instance(value = ModSamsContent.MODID)
@@ -45,9 +44,7 @@ public class ModSamsContent
 		if(ModSamsContent.settings.searchtrade) { event.registerServerCommand(new CommandSearchTrades()); }
 		if(ModSamsContent.settings.searchitem) { event.registerServerCommand(new CommandSearchItem()); }
 		if(ModSamsContent.settings.enderchest) { event.registerServerCommand(new CommandEnderChest()); }
-		 
 		if(ModSamsContent.settings.gethome) { event.registerServerCommand(new CommandGetHome()); }
-		 
 		if(ModSamsContent.settings.home) { event.registerServerCommand(new CommandWorldHome()); }
 		if(ModSamsContent.settings.worldhome) { event.registerServerCommand(new CommandHome());}
 	} 
