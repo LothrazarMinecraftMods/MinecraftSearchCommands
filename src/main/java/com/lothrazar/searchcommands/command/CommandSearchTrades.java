@@ -83,13 +83,15 @@ public class CommandSearchTrades  implements ICommand
 				X + 0.5D + range, 255.0D, 
 				Z + 0.5D + range);
 		
-		 List merchants = ic.getEntityWorld().getEntitiesWithinAABB(IMerchant.class, searchRange);
-		 List<IMerchant> villagers = new ArrayList();
+		//ic.getEntityWorld().getEntitiesWithinAABB(classEntity, bb)
+		
+		 List<EntityLiving> merchants = ic.getEntityWorld().getEntitiesWithinAABB(EntityLiving.class, searchRange);
+		 List<IMerchant> villagers = new ArrayList<IMerchant>();
 		 
 		 //double check that it should be an adult villager
 		 for (Object m : merchants) 
 		 {
-		     if(m instanceof EntityLiving && ((EntityLiving)m).isChild() == false && (IMerchant)m != null)
+		     if(m instanceof IMerchant && ((EntityLiving)m).isChild() == false && (IMerchant)m != null)
 		     {
 		    	 villagers.add((IMerchant)m);
 		     }
